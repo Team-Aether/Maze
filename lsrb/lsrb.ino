@@ -42,7 +42,7 @@ void loop() {
      delay(3000); // move forward for 3 seconds
      Stop();
 
-     if (l == HIGH && s == HIGH && r == HIGH)
+     if (l == LOW && s == LOW && r == LOW)
         stop();
         
      else
