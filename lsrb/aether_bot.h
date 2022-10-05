@@ -1,6 +1,9 @@
 #ifndef AETHER_BOT_H
 #define AETHER_BOT_H
 
+#include <MPU6050_light.h>
+#include "Wire.h"
+
 /*Infara-red sensors*/
 
 #define L_IR_IN 2
@@ -18,6 +21,8 @@
 #define IRS 12
 #define IRR 13
 #define IRL 14
+
+MPU6050 mpu(Wire);
 
 const int speed = 45;
 const int left_motor_speed = 30;

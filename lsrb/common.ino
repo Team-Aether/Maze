@@ -1,6 +1,5 @@
 #include "aether_bot.h"
 
-
 void forward()
 {
   digitalWrite(IN1, LOW);
@@ -27,14 +26,25 @@ void reverse()
 
 void u_turn()
 {
-  digitalWrite(in1, HIGH);
-  digitalWrite(in2, LOW);
+  float turn_angle = 0.0;
+  
+  while (abs(turn_angle) < 180) {
+    Serial.print("Turning...");
+    Serial.print(turn_angle);
+    Serial.println(" Degrees");
+    
+    digitalWrite(IN1, HIGH);
+    digitalWrite(IN2, LOW);
+  
+    digitalWrite(IN3, LOW);
+    digitalWrite(IN4, HIGH);
+  
+    analogWrite(ENA, 40);
+    analogWrite(ENB, 70);
 
-  digitalWrite(in3, LOW);
-  digitalWrite(in4, HIGH);
-
-  analogWrite(ena, 40);
-  analogWrite(enb, 70); 
+    mpu.update();
+    turn_angle = mpu.getAngleZ();
+  } 
 }
 
 void left()

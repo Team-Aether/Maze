@@ -3,16 +3,27 @@
 int l, s, r;
 
 void setup() {
-  // put your setup code here, to run once:
+  Serial.begin(9600);
+  Wire.begin();
   pinMode(IRS, INPUT);
   pinMode(IRR, INPUT);
   pinMode(IRL, INPUT);
+
+  byte status = mpu.begin();
+  Serial.print(F("MPU6050 status: "));
+  Serial.println(status);
+  while (status != 0) { }
+  
+  // Calculate MPU6050 offsets
+  Serial.println(F("Calculating offsets..."));
+  delay(500);
+  mpu.calcOffsets();
 }
 
 void loop() {
   l = digitalRead(IRL);
   s = digitalRead(IRS);
-  r = digitalRead(IRR;
+  r = digitalRead(IRR);
 
   // LSRB algorithm
   if (l == LOW && s == HIGH && r == HIGH) // left
@@ -40,7 +51,7 @@ void loop() {
   {
      forward();
      delay(3000); // move forward for 3 seconds
-     Stop();
+     stop();
 
      if (l == LOW && s == LOW && r == LOW)
         stop();
